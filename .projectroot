@@ -1,0 +1,11 @@
+<!--
+ @changed 2020.08.21, 15:39
+-->
+
+## Source files
+
+- `app/src/main/java/com/example/masterdetail/dummy/DummyContent.kt`
+
+## Source files extensions
+
+- `*.kt,*.xml,*.json`
