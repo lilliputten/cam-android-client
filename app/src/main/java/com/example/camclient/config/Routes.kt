@@ -3,13 +3,13 @@
  *  @changed 2020.10.30, 05:02
  */
 
-package com.example.masterdetail.config
+package com.example.camclient.config
 
 import android.util.Log
 import java.util.*
 
-import com.example.masterdetail.config.Params
-import com.example.masterdetail.config.RouteIds
+import com.example.camclient.config.Params
+import com.example.camclient.config.RouteIds
 
 object Routes {
 

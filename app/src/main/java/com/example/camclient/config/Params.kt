@@ -3,9 +3,9 @@
  *  @changed 2020.10.30, 05:02
  */
 
-package com.example.masterdetail.config
+package com.example.camclient.config
 
-import com.example.masterdetail.config.CoreUtils
+import com.example.camclient.config.CoreUtils
 
 // import android.util.Log
 // import java.util.*

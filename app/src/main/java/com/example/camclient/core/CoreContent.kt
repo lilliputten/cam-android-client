@@ -1,4 +1,4 @@
-package com.example.masterdetail.core
+package com.example.camclient.core
 
 import android.app.DownloadManager
 import android.content.Context
@@ -16,10 +16,10 @@ import com.android.volley.Request
 import com.android.volley.Response
 import org.json.JSONObject
 
-import com.example.masterdetail.config.CoreUtils
-import com.example.masterdetail.config.Params
-import com.example.masterdetail.config.RouteIds
-import com.example.masterdetail.config.Routes
+import com.example.camclient.config.CoreUtils
+import com.example.camclient.config.Params
+import com.example.camclient.config.RouteIds
+import com.example.camclient.config.Routes
 
 /**
  * Helper class for providing sample content for user interfaces created by

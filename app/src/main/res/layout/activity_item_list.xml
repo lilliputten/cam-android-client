@@ -11,13 +11,13 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.MasterDetail.AppBarOverlay">
+        android:theme="@style/Theme.CamClient.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/Theme.MasterDetail.PopupOverlay" />
+            app:popupTheme="@style/Theme.CamClient.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

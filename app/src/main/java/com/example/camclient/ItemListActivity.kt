@@ -1,4 +1,4 @@
-package com.example.masterdetail
+package com.example.camclient
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-import com.example.masterdetail.core.CoreContent
+import com.example.camclient.core.CoreContent
 
 /**
  * An activity representing a list of Pings. This activity

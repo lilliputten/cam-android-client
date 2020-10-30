@@ -1,4 +1,4 @@
-package com.example.masterdetail
+package com.example.camclient
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.masterdetail.core.CoreContent
+import com.example.camclient.core.CoreContent
 
 /**
  * A fragment representing a single Item detail screen.

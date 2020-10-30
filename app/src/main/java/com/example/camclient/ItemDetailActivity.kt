@@ -1,4 +1,4 @@
-package com.example.masterdetail
+package com.example.camclient
 
 import android.content.Intent
 import android.os.Bundle

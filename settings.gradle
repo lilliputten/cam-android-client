@@ -1,2 +1,2 @@
 include ':app', ':volley'
-rootProject.name = "MasterDetail"
+rootProject.name = "CamClient"
