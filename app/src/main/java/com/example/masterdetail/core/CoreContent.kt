@@ -1,16 +1,25 @@
-package com.example.masterdetail.dummy
+package com.example.masterdetail.core
 
 import android.app.DownloadManager
 import android.content.Context
+import android.os.Build
+import android.util.Base64
 import android.util.Log
+import com.android.volley.AuthFailureError
 import java.util.ArrayList
 import java.util.HashMap
-//import android.widget.Toast
+import android.widget.Toast
 //import com.android.volley
 import com.android.volley.toolbox.Volley
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.Request
 import com.android.volley.Response
+import org.json.JSONObject
+
+import com.example.masterdetail.config.CoreUtils
+import com.example.masterdetail.config.Params
+import com.example.masterdetail.config.RouteIds
+import com.example.masterdetail.config.Routes
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -18,9 +27,9 @@ import com.android.volley.Response
  *
  * TODO: Replace all uses of this class before publishing your app.
  */
-object DummyContent {
+object CoreContent {
 
-    private const val TAG: String = "DummyContent"
+    private const val TAG: String = "DEBUG:CoreContent"
 
     private lateinit var context: Context
 
@@ -38,38 +47,44 @@ object DummyContent {
 
     init {
         // Toast.makeText(this, "Init!", Toast.LENGTH_LONG).show()
-        Log.d(TAG, "DummyContent test log: init")
-        // this.context = context.applicationContext
+        Log.d(TAG, "init")
         // Add some sample items.
         for (i in 1..COUNT) {
             addItem(createDummyItem(i))
         }
     }
 
-    fun start(con: Context) {
-        this.context = con
+    fun start(context: Context) {
+        this.context = context
         requestData()
     }
 
     private fun requestData() {
-        // TODO 2020.10.28, 06:06 -- Can't connect to localhost?
-        val url = "http://localhost:5000/api/images/recent"
-        // val url = "https://cam.lilliputten.ru/api/images/recent"
+        val url = Routes.getRoute(RouteIds.Recent)
         Log.d(TAG, "requestData: url: $url")
-        // private lateinit var context: Context
         val queue = Volley.newRequestQueue(this.context)
-        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
+        val jsonObjectRequest = object : JsonObjectRequest(Request.Method.GET, url, JSONObject(),
             Response.Listener { response ->
-                // textView.text = "Response: %s".format(response.toString())
-                // Toast.makeText(this, "Success!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this.context, "Request success!", Toast.LENGTH_LONG).show()
                 Log.d(TAG, "requestData: response: %s".format(response.toString()))
             },
-            Response.ErrorListener { error ->
-                // TODO: Handle error
-                // Toast.makeText(this, "Error!", Toast.LENGTH_LONG).show()
-                Log.d(TAG, "requestData: error: %s".format(error.toString()))
+            Response.ErrorListener { error -> // Handle error
+                val errorStr = error.toString()
+                Toast.makeText(this.context, "Request error: $errorStr", Toast.LENGTH_LONG).show()
+                Log.d(TAG, "requestData: error: $errorStr")
             }
-        )
+        ) {
+            // Add authorization header (like 'Authorization: Basic Z3Vlc3Q6MTIz')
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>() // It works!
+                val cred:String = String.format("%s:%s", "guest", "123")
+                val auth = "Basic " + Base64.encodeToString(cred.toByteArray(), Base64.NO_WRAP)
+                Log.d(TAG, "requestData: auth: $auth")
+                headers["Authorization"] = auth
+                return headers
+            }
+        }
         // Access the RequestQueue through your singleton class.
         // MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
         queue.add(jsonObjectRequest)
