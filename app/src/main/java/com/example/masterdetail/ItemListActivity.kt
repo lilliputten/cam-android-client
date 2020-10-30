@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-import com.example.masterdetail.dummy.DummyContent
+import com.example.masterdetail.core.CoreContent
 
 /**
  * An activity representing a list of Pings. This activity
@@ -54,15 +54,15 @@ class ItemListActivity : AppCompatActivity() {
 
         setupRecyclerView(findViewById(R.id.item_list))
 
-        DummyContent.start(this)
+        CoreContent.start(this)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, twoPane)
+        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, CoreContent.ITEMS, twoPane)
     }
 
     class SimpleItemRecyclerViewAdapter(private val parentActivity: ItemListActivity,
-                                        private val values: List<DummyContent.DummyItem>,
+                                        private val values: List<CoreContent.DummyItem>,
                                         private val twoPane: Boolean) :
             RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
 
@@ -70,7 +70,7 @@ class ItemListActivity : AppCompatActivity() {
 
         init {
             onClickListener = View.OnClickListener { v ->
-                val item = v.tag as DummyContent.DummyItem
+                val item = v.tag as CoreContent.DummyItem
                 if (twoPane) {
                     val fragment = ItemDetailFragment().apply {
                         arguments = Bundle().apply {
