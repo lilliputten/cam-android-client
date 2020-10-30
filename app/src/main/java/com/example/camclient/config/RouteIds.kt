@@ -6,6 +6,7 @@
 package com.example.camclient.config
 
 enum class RouteIds {
+    Undefined, // DEBUG: For test purposes only (empty value, no url)
     Recent,
     // AllImages,
 }

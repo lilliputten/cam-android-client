@@ -21,4 +21,7 @@ object Params {
     val serverAddr = "https://cam.lilliputten.ru"
     val devServerAddr = "http://10.0.2.2:5000"
 
+    val authLogin = "guest"
+    val authPass = "123"
+
 }
