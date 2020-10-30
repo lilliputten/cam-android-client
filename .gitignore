@@ -5,6 +5,7 @@
 .*.sw?
 *.tmp
 *.bak
+*.session
 
 *.iml
 .gradle
