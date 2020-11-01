@@ -2,6 +2,7 @@ package com.example.camclient
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.core.widget.NestedScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -25,9 +26,10 @@ import com.example.camclient.core.CoreContent
  */
 class ItemListActivity : AppCompatActivity() {
 
+    private val TAG: String = "DEBUG:ItemListActivity"
+
     /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
+     * Whether or not the activity is in two-pane mode, i.e. running on a tablet device.
      */
     private var twoPane: Boolean = false
 
@@ -44,7 +46,8 @@ class ItemListActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 
-        if (findViewById<NestedScrollView>(R.id.item_detail_container) != null) {
+        // if (findViewById<NestedScrollView>(R.id.item_detail_container) != null) {
+        if (findViewById<NestedScrollView>(R.id.item_details) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
@@ -52,12 +55,14 @@ class ItemListActivity : AppCompatActivity() {
             twoPane = true
         }
 
-        setupRecyclerView(findViewById(R.id.item_list))
-
-        CoreContent.start(this)
+        // setupRecyclerView()
+        CoreContent.start(this) { -> this.setupRecyclerView() }
     }
 
-    private fun setupRecyclerView(recyclerView: RecyclerView) {
+    private fun setupRecyclerView() {
+        val items = CoreContent.ITEMS
+        Log.d(TAG, "setupRecyclerView: $items")
+        val recyclerView: RecyclerView = findViewById(R.id.item_list)
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, CoreContent.ITEMS, twoPane)
     }
 
@@ -79,7 +84,8 @@ class ItemListActivity : AppCompatActivity() {
                     }
                     parentActivity.supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.item_detail_container, fragment)
+                            // .replace(R.id.item_detail_container, fragment)
+                            .replace(R.id.item_details, fragment)
                             .commit()
                 } else {
                     val intent = Intent(v.context, ItemDetailActivity::class.java).apply {
@@ -98,8 +104,8 @@ class ItemListActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
-            holder.idView.text = item.id
-            holder.contentView.text = item.content
+            holder.ipView.text = item.ip
+            holder.contentView.text = item.timestamp
 
             with(holder.itemView) {
                 tag = item
@@ -110,7 +116,7 @@ class ItemListActivity : AppCompatActivity() {
         override fun getItemCount() = values.size
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val idView: TextView = view.findViewById(R.id.id_text)
+            val ipView: TextView = view.findViewById(R.id.ip_text)
             val contentView: TextView = view.findViewById(R.id.content)
         }
     }

@@ -1,6 +1,12 @@
+/** @module ItemDetailFragment
+ *  @since 2020.10.30, 03:27
+ *  @changed 2020.10.31, 21:35
+ */
+
 package com.example.camclient
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import android.view.LayoutInflater
@@ -17,8 +23,10 @@ import com.example.camclient.core.CoreContent
  */
 class ItemDetailFragment : Fragment() {
 
+    private val TAG: String = "DEBUG:ItemDetailFragment"
+
     /**
-     * The dummy content this fragment is presenting.
+     * The content this fragment is presenting.
      */
     private var item: CoreContent.ImageItem? = null
 
@@ -31,21 +39,45 @@ class ItemDetailFragment : Fragment() {
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
                 item = CoreContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
-                activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title = item?.content
+                // activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title = "${item?.timestamp}\n${item?.ip}"
             }
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.item_detail, container, false)
-
-        // Show the dummy content as text in a TextView.
-        item?.let {
-            rootView.findViewById<TextView>(R.id.item_detail).text = it.details
+        try {
+            // val rootView = inflater.inflate(R.layout.item_detail, container, false)
+            val viewId = R.layout.item_details
+            // val viewId = R.layout.show_timestamp_row
+            Log.d(TAG, "onCreateView: try to find view: $viewId")
+            // return null
+            val rootView = inflater.inflate(viewId, container, false)
+            Log.d(TAG, "onCreateView: found view: $rootView")
+            // Show content
+            item?.let {
+                // rootView.findViewById<TextView>(R.id.item_detail).text = "Image for item ${it.id}"
+                // val showTimestamp = rootView.findViewById<TextView>(R.id.show_timestamp)
+                val showTimestamp = container?.findViewById<TextView>(R.id.show_timestamp)
+                Log.d(TAG, "onCreateView: found timestamp field (${R.id.show_timestamp}): $showTimestamp")
+                if (showTimestamp !== null) {
+                    showTimestamp.text = it.timestamp
+                }
+                val showIp = container?.findViewById<TextView>(R.id.show_ip)
+                Log.d(TAG, "onCreateView: found ip field (${R.id.show_ip}): $showIp")
+                if (showIp !== null) {
+                    showIp.text = it.ip
+                }
+                // TODO 2020.11.01, 05:19 -- Place image
+            }
+            return rootView
         }
-
-        return rootView
+        catch (ex: Exception) {
+            val message = ex.message
+            val stacktrace = ex.getStackTrace().joinToString("\n")
+            Log.d(TAG, "onCreateView: exception: $message / $stacktrace")
+            return null
+        }
     }
 
     companion object {

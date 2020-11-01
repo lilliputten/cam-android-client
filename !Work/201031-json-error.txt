@@ -1,0 +1,4 @@
+2020-10-31 20:35:02.835 8435-8435/com.example.camclient D/DEBUG:Requestor: requestData: error:
+com.android.volley.ParseError: org.json.JSONException: Value
+[{"id":"xxx","ip":"81.195.31.186","timestamp":"2020.10.23-00:59"},{"id":"81.195.31.186-201023-005943","ip":"81.195.31.186","timestamp":"2020.10.23-00:59"}]
+of type org.json.JSONArray cannot be converted to JSONObject
