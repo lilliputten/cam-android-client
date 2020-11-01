@@ -7,6 +7,18 @@
     android:fitsSystemWindows="true"
     tools:context=".ItemListActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/reload_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="@string/reload_button"
+        android:focusable="true"
+        android:translationX="-70dp"
+        app:layout_anchor="@+id/delete_button"
+        app:layout_anchorGravity="center"
+        app:srcCompat="@android:drawable/ic_popup_sync" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -33,11 +45,12 @@
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:contentDescription="@string/delete_all_images"
+        app:srcCompat="@android:drawable/ic_delete" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

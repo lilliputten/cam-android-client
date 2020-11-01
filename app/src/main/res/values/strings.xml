@@ -4,6 +4,8 @@
     <string name="show_timestamp">show_timestamp</string>
     <string name="date_time">Date/time:</string>
     <string name="delete_image">Delete image</string>
-    <string name="ip">IP</string>
+    <string name="ip">IP:</string>
     <string name="show_ip">show_ip</string>
+    <string name="reload_button">Reload images list</string>
+    <string name="delete_all_images">Delete all images</string>
 </resources>

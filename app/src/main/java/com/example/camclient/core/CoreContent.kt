@@ -30,6 +30,8 @@ object CoreContent {
 
     private const val TAG: String = "DEBUG:CoreContent"
 
+    private var inited: Boolean = false
+
     private lateinit var context: Context
     private lateinit var updateCallback: () -> Unit
     // private lateinit var queue: RequestQueue
@@ -72,33 +74,39 @@ object CoreContent {
     fun start(context: Context, updateCallback: () -> Unit) {
         this.context = context
         this.updateCallback = updateCallback
+        Log.d(TAG, "start: context: ${this.context}")
         Requestor.start(context)
-        this.requestData()
-        // this.requestDataAsync() // Failed!
-        // this.requestDataRaw()
-        // NOTE: Test for processing async functions
-        // Requestor.runTestAsyncResult()
+        if (!this.inited) {
+            this.inited = true
+            this.requestData()
+            // this.requestDataAsync() // Failed!
+            // NOTE: Test for processing async functions
+            // Requestor.runTestAsyncResult()
+        }
+        else {
+            this.updateCallback()
+        }
     }
 
-    private fun setImagesList(data: JSONObject) {
+    private fun setImagesList(data: JSONObject?) {
         try {
-            if (!data.has("images") || data["images"] !is JSONArray) {
-                throw Exception("Images list is required!")
-            }
-            val images = data["images"] as JSONArray
-            val itemsCount = images.length()
-            Log.d(TAG, "setImagesList: ($itemsCount) $images")
             this.ITEMS.clear()
-            for (i in 0 until itemsCount) {
-                val item = images[i] as JSONObject
-                // item sample data: {"id":"xxx","ip":"81.195.31.186","timestamp":"2020.10.23-00:59"}
-                val id = item["id"] as String
-                val ip = item["ip"] as String
-                val timestamp = item["timestamp"] as String
-                // val test = item["test"] // Ivalid key error test (must be catched)
-                Log.d(TAG, "setImagesList: addItem ($i) $item")
-                val itemObject = ImageItem(id, ip, timestamp)
-                this.addItem(itemObject)
+            if (data !== null && data.has("images") && data["images"] is JSONArray) {
+                // throw Exception("Images list is required!")
+                val images = data["images"] as JSONArray
+                val itemsCount = images.length()
+                Log.d(TAG, "setImagesList: ($itemsCount) $images")
+                for (i in 0 until itemsCount) {
+                    val item = images[i] as JSONObject
+                    // item sample data: {"id":"xxx","ip":"81.195.31.186","timestamp":"2020.10.23-00:59"}
+                    val id = item["id"] as String
+                    val ip = item["ip"] as String
+                    val timestamp = item["timestamp"] as String
+                    // val test = item["test"] // Ivalid key error test (must be catched)
+                    Log.d(TAG, "setImagesList: addItem ($i) $item")
+                    val itemObject = ImageItem(id, ip, timestamp)
+                    this.addItem(itemObject)
+                }
             }
             Log.d(TAG, "setImagesList: calling updateCallback with $this.ITEMS")
             if (!(this::updateCallback.isInitialized)) {
@@ -117,7 +125,7 @@ object CoreContent {
     private fun requestData() {
         val method = Request.Method.GET
         val url = Routes.getRoute(RouteIds.AllImages)
-        Log.d(TAG, "requestData: start: url: $url")
+        Log.d(TAG, "requestData: start: url: $url, nethod: $method")
         Requestor.fetchCallback(method, url, JSONObject()) { result ->
             Log.d(TAG, "requestData: success: $result")
             if (result is Exception) {
@@ -130,7 +138,29 @@ object CoreContent {
                 this.setImagesList(result)
             }
         }
-        Log.d(TAG, "requestData: after coroutine")
+    }
+
+    fun reloadData() {
+        this.requestData()
+    }
+
+    fun deleteAll() {
+        val method = Request.Method.DELETE
+        val url = Routes.getRoute(RouteIds.AllImages)
+        Log.d(TAG, "deleteAll: start: url: $url, nethod: $method")
+        Requestor.fetchCallback(method, url, JSONObject()) { result ->
+            Log.d(TAG, "deleteAll: success: $result")
+            if (result is Exception) {
+                val message = result.message
+                val stacktrace = result.getStackTrace().joinToString("\n")
+                Log.d(TAG, "deleteAll: error: $message / Stacktrace: $stacktrace")
+                Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
+            }
+            else {
+                // Alternative: pass empty images list in expected json format: `JSONObject(mapOf("images" to ArrayList<Int>()))`
+                this.setImagesList(null)
+            }
+        }
     }
 
     private fun requestDataAsync() { // NOTE: Example!

@@ -41,9 +41,16 @@ class ItemListActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         toolbar.title = title
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+        findViewById<FloatingActionButton>(R.id.delete_button).setOnClickListener { view ->
+            Snackbar.make(view, "Deleting all images", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
+            CoreContent.deleteAll()
+        }
+
+        findViewById<FloatingActionButton>(R.id.reload_button).setOnClickListener { view ->
+            Snackbar.make(view, "Reloading images", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            CoreContent.reloadData()
         }
 
         // if (findViewById<NestedScrollView>(R.id.item_detail_container) != null) {
@@ -120,4 +127,5 @@ class ItemListActivity : AppCompatActivity() {
             val contentView: TextView = view.findViewById(R.id.content)
         }
     }
+
 }

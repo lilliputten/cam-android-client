@@ -28,6 +28,8 @@ object Requestor {
 
     private const val TAG: String = "DEBUG:Requestor"
 
+    // private var inited: Boolean = false
+
     private lateinit var context: Context
     private lateinit var queue: RequestQueue
 
@@ -38,7 +40,13 @@ object Requestor {
     fun start(context: Context) {
         this.context = context
         this.queue = Volley.newRequestQueue(this.context)
-        Log.d(TAG, "start: context: ${this.context} queue: ${this.queue}")
+        Log.d(TAG, "start: ${this.context} queue: ${this.queue}")
+        // if (!this.inited) {
+        //     this.inited = true
+        // }
+        // else {
+        //     Log.d(TAG, "start: already inited: context: ${this.context} queue: ${this.queue}")
+        // }
     }
 
     fun fetchCallback(method: Int, url: String?, data: JSONObject?, callback: (Any) -> Unit) {
@@ -50,7 +58,7 @@ object Requestor {
             throw RequestorException("Url is not initialized.")
         }
         Log.d(TAG, "fetchCallback: method: $method, url: $url, data: $data")
-        val jsonObjectRequest = object : JsonObjectRequest(Request.Method.GET, url, data,
+        val jsonObjectRequest = object : JsonObjectRequest(method, url, data,
             Response.Listener { response ->
                 Log.d(TAG, "fetchCallback: response: %s".format(response.toString()))
                 try {
