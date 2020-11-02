@@ -1,3 +1,8 @@
+/** @module ItemListActivity
+ *  @since 2020.10.30, 03:27
+ *  @changed 2020.11.02, 03:05
+ */
+
 package com.example.camclient
 
 import android.content.Intent
@@ -71,6 +76,10 @@ class ItemListActivity : AppCompatActivity() {
         Log.d(TAG, "setupRecyclerView: $items")
         val recyclerView: RecyclerView = findViewById(R.id.item_list)
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, CoreContent.ITEMS, twoPane)
+        if (CoreContent.ITEMS.size == 0) {
+            Snackbar.make(recyclerView, "No images to display", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+        }
     }
 
     class SimpleItemRecyclerViewAdapter(private val parentActivity: ItemListActivity,

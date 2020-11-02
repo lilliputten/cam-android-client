@@ -1,10 +1,11 @@
 /** @module ItemDetailFragment
  *  @since 2020.10.30, 03:27
- *  @changed 2020.10.31, 21:35
+ *  @changed 2020.11.02, 03:05
  */
 
 package com.example.camclient
 
+// import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,7 +14,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+// import android.widget.Toast
 import com.example.camclient.core.CoreContent
+// import com.google.android.material.snackbar.Snackbar
 
 /**
  * A fragment representing a single Item detail screen.

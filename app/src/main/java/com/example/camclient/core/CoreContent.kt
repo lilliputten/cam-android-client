@@ -1,6 +1,6 @@
 /** @module CoreContent
  *  @since 2020.10.30, 03:27
- *  @changed 2020.10.31, 21:35
+ *  @changed 2020.11.02, 03:06
  *
  *  TODO:
  *  - Cache images list
@@ -12,16 +12,14 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
-import java.util.ArrayList
-import java.util.HashMap
-import org.json.JSONObject
-
 import com.example.camclient.config.RouteIds
 import com.example.camclient.config.Routes
-
 import com.example.camclient.helpers.Requestor
+import java.util.ArrayList
+import java.util.HashMap
 import kotlinx.coroutines.runBlocking
 import org.json.JSONArray
+import org.json.JSONObject
 
 /**
  * Images list data helpers..
@@ -88,12 +86,13 @@ object CoreContent {
         }
     }
 
-    private fun setImagesList(data: JSONObject?) {
+    private fun setImagesList(images: JSONArray?) {
         try {
             this.ITEMS.clear()
-            if (data !== null && data.has("images") && data["images"] is JSONArray) {
+            this.ITEM_MAP.clear()
+            if (images is JSONArray) {
                 // throw Exception("Images list is required!")
-                val images = data["images"] as JSONArray
+                // val images = data["images"] as JSONArray
                 val itemsCount = images.length()
                 Log.d(TAG, "setImagesList: ($itemsCount) $images")
                 for (i in 0 until itemsCount) {
@@ -134,8 +133,9 @@ object CoreContent {
                 Log.d(TAG, "requestData: error: $message / Stacktrace: $stacktrace")
                 Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
             }
-            else if (result is JSONObject) {
-                this.setImagesList(result)
+            else if (result is JSONObject && result.has("images") && result["images"] is JSONArray) {
+                val images = result["images"] as JSONArray
+                this.setImagesList(images)
             }
         }
     }
@@ -159,6 +159,38 @@ object CoreContent {
             else {
                 // Alternative: pass empty images list in expected json format: `JSONObject(mapOf("images" to ArrayList<Int>()))`
                 this.setImagesList(null)
+            }
+        }
+    }
+
+    fun deleteImage(id: String) {
+        val method = Request.Method.DELETE
+        val data = mapOf("id" to id)
+        val url = Routes.getRoute(RouteIds.Image, data)
+        Log.d(TAG, "deleteImage: start: url: $url, nethod: $method")
+        Requestor.fetchCallback(method, url, JSONObject()) { result ->
+            Log.d(TAG, "deleteImage: success: $result")
+            if (result is Exception) {
+                val message = result.message
+                val stacktrace = result.getStackTrace().joinToString("\n")
+                Log.d(TAG, "deleteImage: error: $message / Stacktrace: $stacktrace")
+                Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
+            }
+            else {
+                // Alternative: pass empty images list in expected json format: `JSONObject(mapOf("images" to ArrayList<Int>()))`
+                // TODO: filter ITEMS
+                // this.setImagesList(null)
+                val removedItem = this.ITEM_MAP.remove(id)
+                if (removedItem !== null) {
+                    this.ITEMS.remove(removedItem)
+                }
+                // val removedIndex = this.ITEMS.indexOf(removedItem)
+                // this.ITEMS.drop(removedIndex)
+                Log.d(TAG, "deleteImage: deleted image $id, ${this.ITEMS}, ${this.ITEM_MAP}")
+                if (!(this::updateCallback.isInitialized)) {
+                    throw Exception("`updateCallback` must be initialized!")
+                }
+                this.updateCallback()
             }
         }
     }

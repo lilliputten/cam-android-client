@@ -1,11 +1,18 @@
+/** @module ItemDetailActivity
+ *  @since 2020.10.30, 03:27
+ *  @changed 2020.11.02, 03:05
+ */
+
 package com.example.camclient
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import com.example.camclient.core.CoreContent
 
 /**
  * An activity representing a single Item detail screen. This
@@ -15,14 +22,27 @@ import android.view.MenuItem
  */
 class ItemDetailActivity : AppCompatActivity() {
 
+    private val TAG: String = "DEBUG:ItemDetailActivity"
+
+    private var itemId: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_detail)
         setSupportActionBar(findViewById(R.id.detail_toolbar))
 
         findViewById<FloatingActionButton>(R.id.delete_button).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            if (this.itemId === null) {
+                throw Exception("itemId is undefined!")
+            }
+            else {
+                Log.d(TAG, "delete_button action: ${this.itemId}")
+                Snackbar.make(view, "Deleting item", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                CoreContent.deleteImage(this.itemId as String)
+                navigateUpTo(Intent(this, ItemListActivity::class.java))
+                true
+            }
         }
 
         // Show the Up button in the action bar.
@@ -40,13 +60,13 @@ class ItemDetailActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
+            val itemId = intent.getStringExtra(ItemDetailFragment.ARG_ITEM_ID)
+            this.itemId = itemId
             val fragment = ItemDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ItemDetailFragment.ARG_ITEM_ID,
-                            intent.getStringExtra(ItemDetailFragment.ARG_ITEM_ID))
+                    putString(ItemDetailFragment.ARG_ITEM_ID, itemId)
                 }
             }
-
             supportFragmentManager.beginTransaction()
                     // .add(R.id.item_detail_container, fragment)
                     .add(R.id.item_details, fragment)
