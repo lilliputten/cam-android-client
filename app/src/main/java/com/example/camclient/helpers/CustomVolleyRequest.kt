@@ -59,6 +59,20 @@ class CustomVolleyRequest private constructor(private val context: Context) {
                         cache.put(url, bitmap)
                     }
                 })
+        // YVolley.getInstance(context).getImageLoader().get(category.child.get(i).icon, new ImageLoader.ImageListener() {
+        //     @Override
+        //     public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+        //         Drawable drawable = new BitmapDrawable(context.getResources(), response.getBitmap());
+        //         drawable.setBounds(0, 0, GeneralUtil.dip2px(context, 45), GeneralUtil.dip2px(context, 45));
+        //         button.setCompoundDrawables(null, drawable, null, null);
+        //         Log.i("swifter", "get icon ... success == "+url);
+        //     }
+        //
+        //     @Override
+        //     public void onErrorResponse(VolleyError error) {
+        //         Log.i("swifter", "get drawable icon error...");
+        //     }
+        // });
     }
 
     fun getLoader(): ImageLoader {

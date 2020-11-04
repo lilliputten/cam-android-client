@@ -115,7 +115,7 @@ object CoreContent {
         }
         catch (ex: Exception) {
             val message = ex.message
-            val stacktrace = ex.getStackTrace().joinToString("\n")
+            val stacktrace = ex.stackTrace.joinToString("\n")
             Log.d(TAG, "setImagesList: error: $message / Stacktrace: $stacktrace")
             Toast.makeText(this.context, "setImagesList: Error: $message", Toast.LENGTH_LONG).show()
         }
@@ -129,7 +129,7 @@ object CoreContent {
             Log.d(TAG, "requestData: result: $result")
             if (result is Exception) {
                 val message = result.message
-                val stacktrace = result.getStackTrace().joinToString("\n")
+                val stacktrace = result.stackTrace.joinToString("\n")
                 Log.d(TAG, "requestData: error: $message / Stacktrace: $stacktrace")
                 Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
             }
@@ -154,7 +154,7 @@ object CoreContent {
             Log.d(TAG, "loadImageData: result: $result")
             if (result is Exception) {
                 val message = result.message
-                val stacktrace = result.getStackTrace().joinToString("\n")
+                val stacktrace = result.stackTrace.joinToString("\n")
                 Log.d(TAG, "loadImageData: error: $message / Stacktrace: $stacktrace")
                 Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
                 callback(result)
@@ -175,7 +175,7 @@ object CoreContent {
             Log.d(TAG, "deleteAll: success: $result")
             if (result is Exception) {
                 val message = result.message
-                val stacktrace = result.getStackTrace().joinToString("\n")
+                val stacktrace = result.stackTrace.joinToString("\n")
                 Log.d(TAG, "deleteAll: error: $message / Stacktrace: $stacktrace")
                 Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
             }
@@ -195,7 +195,7 @@ object CoreContent {
             Log.d(TAG, "deleteImage: success: $result")
             if (result is Exception) {
                 val message = result.message
-                val stacktrace = result.getStackTrace().joinToString("\n")
+                val stacktrace = result.stackTrace.joinToString("\n")
                 Log.d(TAG, "deleteImage: error: $message / Stacktrace: $stacktrace")
                 Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
             }
@@ -231,7 +231,7 @@ object CoreContent {
             }
             catch (ex: Exception) {
                 val message = ex.message
-                val stacktrace = ex.getStackTrace().joinToString("\n")
+                val stacktrace = ex.stackTrace.joinToString("\n")
                 Log.d(TAG, "requestData: error: $message / Stacktrace: $stacktrace")
             }
         }

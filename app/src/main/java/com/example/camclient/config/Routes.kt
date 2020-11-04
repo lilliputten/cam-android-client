@@ -1,6 +1,6 @@
 /** @module config/Routes
  *  @since 2020.10.30, 03:27
- *  @changed 2020.11.02, 03:06
+ *  @changed 2020.11.05, 00:28
  */
 
 package com.example.camclient.config
@@ -17,33 +17,18 @@ val routesMap = mapOf(
     RouteIds.Recent to "$server/api/images/recent",
     RouteIds.AllImages to "$server/api/images",
     RouteIds.Image to "$server/api/images/{id}",
-    RouteIds.ShowImage to "$server/image/{id}-",
+    RouteIds.ShowImage to "$server/image/{id}",
 )
 
 object Routes {
 
     private const val TAG: String = "DEBUG:Routes"
 
-    // val Ids by lazy { RouteIds }
-
     init {
         Log.d(TAG, "Routes: init")
     }
 
-    // private fun getRoutesMap():  Map<RouteIds, String> {
-    //     val isEmulator = Params.isEmulator
-    //     val server = if (isEmulator) Params.devServerAddr else Params.serverAddr
-    //     val routesMap = mapOf(
-    //         RouteIds.Recent to "$server/api/images/recent",
-    //         RouteIds.Recent to "$server/api/images/recent",
-    //     )
-    //     val routesMapStr = routesMap.mapValues { it.value.toString() }
-    //     Log.d(TAG, "Routes: getRoutesMap: isEmulator: $isEmulator / server: $server -> routesMap: $routesMapStr")
-    //     return routesMap
-    // }
-
     fun getRoute(id: RouteIds, data: Map<String, String>? = null): String? {
-        // val routesMap = this.getRoutesMap()
         Log.d(TAG, "Routes: getRoute: $id")
         var url = routesMap[id]
         try {

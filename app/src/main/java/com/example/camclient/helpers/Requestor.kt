@@ -83,7 +83,7 @@ object Requestor {
                 // }
                 // catch (ex: Exception) {
                 //     val message = ex.message
-                //     val stacktrace = ex.getStackTrace().joinToString("\n")
+                //     val stacktrace = ex.stackTrace.joinToString("\n")
                 //     Log.d(TAG, "fetchStringCallback: response: exception: $message / $stacktrace")
                 //     callback(ex)
                 // }
@@ -92,7 +92,7 @@ object Requestor {
                 val message = if (error.message !== null) error.message else error.toString()
                 // Message samples:
                 // com.android.volley.TimeoutError -- on unaccessible host
-                val stacktrace = error.getStackTrace().joinToString("\n")
+                val stacktrace = error.stackTrace.joinToString("\n")
                 // val errorStr = error.toString()
                 val exStr = "Request error: $message"
                 // Toast.makeText(context, exStr, Toast.LENGTH_LONG).show()
@@ -126,7 +126,7 @@ object Requestor {
         this.queue.add(jsonObjectRequest)
         // catch (ex: Exception) {
         //     val message = ex.message
-        //     val stacktrace = ex.getStackTrace().joinToString("\n")
+        //     val stacktrace = ex.stackTrace.joinToString("\n")
         //     Toast.makeText(context, "requestData: exception: $message", Toast.LENGTH_LONG).show()
         //     Log.d(TAG, "requestData: exception: $message / $stacktrace")
         //     val ex = RequestorException("requestData exception: $message")
@@ -164,7 +164,7 @@ object Requestor {
                 // }
                 // catch (ex: Exception) {
                 //     val message = ex.message
-                //     val stacktrace = ex.getStackTrace().joinToString("\n")
+                //     val stacktrace = ex.stackTrace.joinToString("\n")
                 //     Log.d(TAG, "fetchImageCallback: response: exception: $message / $stacktrace")
                 //     callback(ex)
                 // }
@@ -173,7 +173,7 @@ object Requestor {
                 val message = if (error.message !== null) error.message else error.toString()
                 // Message samples:
                 // com.android.volley.TimeoutError -- on unaccessible host
-                val stacktrace = error.getStackTrace().joinToString("\n")
+                val stacktrace = error.stackTrace.joinToString("\n")
                 // val errorStr = error.toString()
                 val exStr = "Request error: $message"
                 // Toast.makeText(context, exStr, Toast.LENGTH_LONG).show()
@@ -207,7 +207,7 @@ object Requestor {
         this.queue.add(jsonObjectRequest)
         // catch (ex: Exception) {
         //     val message = ex.message
-        //     val stacktrace = ex.getStackTrace().joinToString("\n")
+        //     val stacktrace = ex.stackTrace.joinToString("\n")
         //     Toast.makeText(context, "requestData: exception: $message", Toast.LENGTH_LONG).show()
         //     Log.d(TAG, "requestData: exception: $message / $stacktrace")
         //     val ex = RequestorException("requestData exception: $message")
@@ -242,7 +242,7 @@ object Requestor {
                 }
                 catch (ex: Exception) {
                     val message = ex.message
-                    val stacktrace = ex.getStackTrace().joinToString("\n")
+                    val stacktrace = ex.stackTrace.joinToString("\n")
                     Log.d(TAG, "fetchJsonCallback: response: exception: $message / $stacktrace")
                     callback(ex)
                 }
@@ -251,7 +251,7 @@ object Requestor {
                 val message = if (error.message !== null) error.message else error.toString()
                 // Message samples:
                 // com.android.volley.TimeoutError -- on unaccessible host
-                val stacktrace = error.getStackTrace().joinToString("\n")
+                val stacktrace = error.stackTrace.joinToString("\n")
                 // val errorStr = error.toString()
                 val exStr = "Request error: $message"
                 // Toast.makeText(context, exStr, Toast.LENGTH_LONG).show()
@@ -275,7 +275,7 @@ object Requestor {
         this.queue.add(jsonObjectRequest)
         // catch (ex: Exception) {
         //     val message = ex.message
-        //     val stacktrace = ex.getStackTrace().joinToString("\n")
+        //     val stacktrace = ex.stackTrace.joinToString("\n")
         //     Toast.makeText(context, "requestData: exception: $message", Toast.LENGTH_LONG).show()
         //     Log.d(TAG, "requestData: exception: $message / $stacktrace")
         //     val ex = RequestorException("requestData exception: $message")
@@ -295,7 +295,7 @@ object Requestor {
             }
             catch (ex: Exception) {
                 val message = ex.message
-                val stacktrace = ex.getStackTrace().joinToString("\n")
+                val stacktrace = ex.stackTrace.joinToString("\n")
                 Log.d(TAG, "After testAsyncResult error: $message / $stacktrace")
             }
         }

@@ -21,6 +21,7 @@ import com.example.camclient.config.Routes
 // import android.widget.Toast
 import com.example.camclient.core.CoreContent
 import com.example.camclient.helpers.CustomVolleyRequest
+import com.google.android.material.snackbar.Snackbar
 
 // import com.google.android.material.snackbar.Snackbar
 
@@ -91,13 +92,22 @@ class ItemDetailFragment : Fragment() {
                     val data = mapOf("id" to id)
                     val url = Routes.getRoute(RouteIds.ShowImage, data)
                     Log.d(TAG, "loadImageData: start: id: $id, url: $url, data: $data")
-                    val customVolleyRequest = CustomVolleyRequest.getInstance(context)
-                    val imageLoader: ImageLoader = customVolleyRequest!!.getLoader()
-                    val imageListener: ImageLoader.ImageListener = ImageLoader.getImageListener(showImage,
-                            R.drawable.image, R.drawable.broken_image)
-                    imageLoader.get(url, imageListener)
-                    showImage?.setImageURI(Uri.parse(url))
-                    // showImage.setImageUrl(url, imageLoader)
+                    try {
+                        val customVolleyRequest = CustomVolleyRequest.getInstance(context)
+                        val imageLoader: ImageLoader = customVolleyRequest!!.getLoader()
+                        val imageListener: ImageLoader.ImageListener = ImageLoader.getImageListener(showImage,
+                                // 0, 0)
+                                R.drawable.image, R.drawable.broken_image)
+                        imageLoader.get(url, imageListener)
+                        showImage?.setImageURI(Uri.parse(url))
+                    }
+                    catch (ex: Exception) {
+                        val message = ex.message
+                        val stacktrace = ex.stackTrace.joinToString("\n")
+                        Log.d(TAG, "ItemDetailFragment:onCreateView: load image exception: $message / $stacktrace")
+                        Snackbar.make(rootView, "Image loading error: $message", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show()
+                    }
                 }
             }
             return rootView
