@@ -7,18 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context=".ItemListActivity">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/reload_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:contentDescription="@string/reload_button"
-        android:focusable="true"
-        android:translationX="-70dp"
-        app:layout_anchor="@+id/delete_button"
-        app:layout_anchorGravity="center"
-        app:srcCompat="@android:drawable/ic_popup_sync" />
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -41,7 +29,10 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/item_list" />
+        <include
+            layout="@layout/item_list"
+            android:background="#F44336" />
+
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -50,7 +41,20 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:background="#F44336"
         android:contentDescription="@string/delete_all_images"
         app:srcCompat="@android:drawable/ic_delete" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/reload_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="@string/reload_button"
+        android:focusable="true"
+        android:translationX="-70dp"
+        app:layout_anchor="@+id/delete_button"
+        app:layout_anchorGravity="center"
+        app:srcCompat="@android:drawable/ic_popup_sync" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

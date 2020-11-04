@@ -6,16 +6,22 @@
 package com.example.camclient
 
 // import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.android.volley.toolbox.ImageLoader
+import com.example.camclient.config.RouteIds
+import com.example.camclient.config.Routes
 // import android.widget.Toast
 import com.example.camclient.core.CoreContent
+import com.example.camclient.helpers.CustomVolleyRequest
+
 // import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -59,6 +65,8 @@ class ItemDetailFragment : Fragment() {
             Log.d(TAG, "onCreateView: found view: $rootView")
             // Show content
             item?.let {
+                val id = it.id
+
                 // rootView.findViewById<TextView>(R.id.item_detail).text = "Image for item ${it.id}"
                 // val showTimestamp = rootView.findViewById<TextView>(R.id.show_timestamp)
                 val showTimestamp = container?.findViewById<TextView>(R.id.show_timestamp)
@@ -71,13 +79,32 @@ class ItemDetailFragment : Fragment() {
                 if (showIp !== null) {
                     showIp.text = it.ip
                 }
+                val showImage = container?.findViewById<ImageView>(R.id.show_image)
+
+                // CoreContent.loadImageData(it.id) { result ->
+                //     Log.d(TAG, "onCreateView: loadImageData: result: $result, showImage: $showImage")
+                // }
                 // TODO 2020.11.01, 05:19 -- Place image
+
+                val context = this.context // this.getApplicationContext()
+                if (context != null) {
+                    val data = mapOf("id" to id)
+                    val url = Routes.getRoute(RouteIds.ShowImage, data)
+                    Log.d(TAG, "loadImageData: start: id: $id, url: $url, data: $data")
+                    val customVolleyRequest = CustomVolleyRequest.getInstance(context)
+                    val imageLoader: ImageLoader = customVolleyRequest!!.getLoader()
+                    val imageListener: ImageLoader.ImageListener = ImageLoader.getImageListener(showImage,
+                            R.drawable.image, R.drawable.broken_image)
+                    imageLoader.get(url, imageListener)
+                    showImage?.setImageURI(Uri.parse(url))
+                    // showImage.setImageUrl(url, imageLoader)
+                }
             }
             return rootView
         }
         catch (ex: Exception) {
             val message = ex.message
-            val stacktrace = ex.getStackTrace().joinToString("\n")
+            val stacktrace = ex.stackTrace.joinToString("\n")
             Log.d(TAG, "onCreateView: exception: $message / $stacktrace")
             return null
         }
@@ -90,4 +117,5 @@ class ItemDetailFragment : Fragment() {
          */
         const val ARG_ITEM_ID = "item_id"
     }
+
 }

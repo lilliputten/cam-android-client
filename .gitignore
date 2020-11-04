@@ -5,6 +5,8 @@
 *.tmp
 *.bak
 *.session
+*-crashed-session.txt
+*-crashed-session.tgz
 
 *.iml
 .gradle

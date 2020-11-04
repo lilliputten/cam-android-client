@@ -10,4 +10,5 @@ enum class RouteIds {
     Recent,
     AllImages,
     Image,
+    ShowImage,
 }

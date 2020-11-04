@@ -79,6 +79,7 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/show_ip_row"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -97,15 +98,31 @@
 
             </TableLayout>
 
+            <ImageView
+                android:id="@+id/show_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:importantForAccessibility="no"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/image" />
+
         </LinearLayout>
 
     </LinearLayout>
 
+    <!--
     <androidx.core.widget.NestedScrollView
         android:id="@+id/item_detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    -->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/delete_button"

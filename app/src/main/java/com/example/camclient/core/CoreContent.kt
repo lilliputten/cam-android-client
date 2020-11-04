@@ -124,9 +124,9 @@ object CoreContent {
     private fun requestData() {
         val method = Request.Method.GET
         val url = Routes.getRoute(RouteIds.AllImages)
-        Log.d(TAG, "requestData: start: url: $url, nethod: $method")
-        Requestor.fetchCallback(method, url, JSONObject()) { result ->
-            Log.d(TAG, "requestData: success: $result")
+        Log.d(TAG, "requestData: start: url: $url, method: $method")
+        Requestor.fetchJsonCallback(method, url, JSONObject()) { result ->
+            Log.d(TAG, "requestData: result: $result")
             if (result is Exception) {
                 val message = result.message
                 val stacktrace = result.getStackTrace().joinToString("\n")
@@ -135,6 +135,7 @@ object CoreContent {
             }
             else if (result is JSONObject && result.has("images") && result["images"] is JSONArray) {
                 val images = result["images"] as JSONArray
+                Log.d(TAG, "requestData: success: $images")
                 this.setImagesList(images)
             }
         }
@@ -144,11 +145,33 @@ object CoreContent {
         this.requestData()
     }
 
+    fun loadImageData(id: String, callback: (Any) -> Unit) {
+        val method = Request.Method.GET
+        val data = mapOf("id" to id)
+        val url = Routes.getRoute(RouteIds.ShowImage, data)
+        Log.d(TAG, "loadImageData: start: url: $url, method: $method, data: $data")
+        Requestor.fetchStringCallback(method, url, data) { result ->
+            Log.d(TAG, "loadImageData: result: $result")
+            if (result is Exception) {
+                val message = result.message
+                val stacktrace = result.getStackTrace().joinToString("\n")
+                Log.d(TAG, "loadImageData: error: $message / Stacktrace: $stacktrace")
+                Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
+                callback(result)
+            }
+            // else if (result is JSONObject && result.has("images") && result["images"] is JSONArray) {
+            else {
+                Log.d(TAG, "loadImageData: success: $result")
+                callback(result)
+            }
+        }
+    }
+
     fun deleteAll() {
         val method = Request.Method.DELETE
         val url = Routes.getRoute(RouteIds.AllImages)
-        Log.d(TAG, "deleteAll: start: url: $url, nethod: $method")
-        Requestor.fetchCallback(method, url, JSONObject()) { result ->
+        Log.d(TAG, "deleteAll: start: url: $url, method: $method")
+        Requestor.fetchJsonCallback(method, url, JSONObject()) { result ->
             Log.d(TAG, "deleteAll: success: $result")
             if (result is Exception) {
                 val message = result.message
@@ -167,8 +190,8 @@ object CoreContent {
         val method = Request.Method.DELETE
         val data = mapOf("id" to id)
         val url = Routes.getRoute(RouteIds.Image, data)
-        Log.d(TAG, "deleteImage: start: url: $url, nethod: $method")
-        Requestor.fetchCallback(method, url, JSONObject()) { result ->
+        Log.d(TAG, "deleteImage: start: url: $url, method: $method")
+        Requestor.fetchJsonCallback(method, url, JSONObject()) { result ->
             Log.d(TAG, "deleteImage: success: $result")
             if (result is Exception) {
                 val message = result.message

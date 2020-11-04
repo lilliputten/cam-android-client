@@ -1,5 +1,5 @@
 <!--
- @changed 2020.10.31, 01:33
+ @changed 2020.11.04, 23:35
 -->
 
 ## Source files
@@ -8,4 +8,5 @@
 
 ## Source files extensions
 
-- `*.kt,*.xml,*.json`
+- `*.kt,*.java,*.xml,*.json`
+- Extended (all possible variants for companion projects): `*.kt,*.java,*.xml,*.py,*.wsgi,*.js,*.jsx,*.ts,*.tsx,*.css,*.pcss,*.styl,*.md,*.json,*.yml,*.yaml,*.sh,*.md,*.txt`

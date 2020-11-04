@@ -8,4 +8,5 @@
     <string name="show_ip">show_ip</string>
     <string name="reload_button">Reload images list</string>
     <string name="delete_all_images">Delete all images</string>
+    <string name="view_image">View image</string>
 </resources>

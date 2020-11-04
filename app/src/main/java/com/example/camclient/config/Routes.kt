@@ -12,11 +12,12 @@ import com.example.camclient.config.Params
 import com.example.camclient.config.RouteIds
 
 val isEmulator = Params.isEmulator
-val server = if (isEmulator) Params.devServerAddr else Params.serverAddr
+val server = if (false && isEmulator) Params.devServerAddr else Params.serverAddr
 val routesMap = mapOf(
     RouteIds.Recent to "$server/api/images/recent",
     RouteIds.AllImages to "$server/api/images",
     RouteIds.Image to "$server/api/images/{id}",
+    RouteIds.ShowImage to "$server/image/{id}-",
 )
 
 object Routes {
