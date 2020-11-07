@@ -3,13 +3,13 @@
  *  @changed 2020.11.05, 00:28
  */
 
-package com.example.camclient.config
+package ru.lilliputten.camclient.config
 
 import android.util.Log
 import java.util.*
 
-import com.example.camclient.config.Params
-// import com.example.camclient.config.RouteIds
+import ru.lilliputten.camclient.config.Params
+// import ru.lilliputten.camclient.config.RouteIds
 
 enum class RouteIds {
     Undefined, // DEBUG: For test purposes only (empty value, no url)

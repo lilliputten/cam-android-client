@@ -3,9 +3,9 @@
  *  @changed 2020.10.30, 05:02
  */
 
-package com.example.camclient.config
+package ru.lilliputten.camclient.config
 
-import com.example.camclient.config.CoreUtils
+import ru.lilliputten.camclient.config.CoreUtils
 
 // import android.util.Log
 // import java.util.*

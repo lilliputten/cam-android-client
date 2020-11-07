@@ -3,7 +3,7 @@
  *  @changed 2020.11.07, 22:51
  */
 
-package com.example.camclient.helpers
+package ru.lilliputten.camclient.helpers
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -24,7 +24,7 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 
-import com.example.camclient.config.Params
+import ru.lilliputten.camclient.config.Params
 
 class RequestorException(message:String): Exception(message)
 

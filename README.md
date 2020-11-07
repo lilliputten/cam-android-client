@@ -1,22 +1,20 @@
-# Cam server android client sample
+# Cam server android client v.0, kotlin)
 
 
-TODO...
+## Current status documents
+
+- [README.md](README.md) (this document)
+- [TODO.md](TODO.md)
+- [CHANGELOG.md](CHANGELOG.md)
 
 
-## Build info (auto-generated)
+# App parameters:
 
-- Version: 0.0.18
-- Last changes timestamp: 2020.10.06, 02:18
-- Last changes timetag: 201006-0218
-
-
-# Current status documents
-
-- TODO.md
-- CHANGELOG.md
+- Source folder: [app/src/main/java/ru/lilliputten/camclient](app/src/main/java/ru/lilliputten/camclient)
+- Source extensions: `*.kt,*.java,*.xml,*.json,*.yml,*.yaml,*.sh,*.md,*.txt`
+- Debug log filtering: `d/debug`
 
 
 <!--
- @changed 2020.10.31, 01:33
+ @changed 2020.11.07, 23:04
 -->

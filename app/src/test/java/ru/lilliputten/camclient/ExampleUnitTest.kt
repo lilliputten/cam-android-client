@@ -1,4 +1,4 @@
-package com.example.camclient
+package ru.lilliputten.camclient
 
 import org.junit.Test
 

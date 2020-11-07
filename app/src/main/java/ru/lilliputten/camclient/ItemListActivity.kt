@@ -3,7 +3,7 @@
  *  @changed 2020.11.02, 03:05
  */
 
-package com.example.camclient
+package ru.lilliputten.camclient
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
-import com.example.camclient.core.CoreContent
+import ru.lilliputten.camclient.core.CoreContent
 
 /**
  * An activity representing a list of Pings. This activity

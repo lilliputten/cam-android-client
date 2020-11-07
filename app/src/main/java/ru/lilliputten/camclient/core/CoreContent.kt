@@ -6,16 +6,16 @@
  *  - Cache images list
  */
 
-package com.example.camclient.core
+package ru.lilliputten.camclient.core
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
-import com.example.camclient.config.RouteIds
-import com.example.camclient.config.Routes
-import com.example.camclient.helpers.Requestor
+import ru.lilliputten.camclient.config.RouteIds
+import ru.lilliputten.camclient.config.Routes
+import ru.lilliputten.camclient.helpers.Requestor
 import java.util.ArrayList
 import java.util.HashMap
 import kotlinx.coroutines.runBlocking

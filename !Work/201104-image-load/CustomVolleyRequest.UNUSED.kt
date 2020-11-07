@@ -1,4 +1,4 @@
-package com.example.camclient.helpers
+package ru.lilliputten.camclient.helpers
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -11,7 +11,7 @@ import com.android.volley.toolbox.BasicNetwork
 import com.android.volley.toolbox.DiskBasedCache
 import com.android.volley.toolbox.HurlStack
 import com.android.volley.toolbox.ImageLoader
-import com.example.camclient.ItemDetailFragment
+import ru.lilliputten.camclient.ItemDetailFragment
 import kotlin.jvm.Synchronized
 
 /**

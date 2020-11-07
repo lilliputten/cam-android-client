@@ -3,7 +3,7 @@
  *  @changed 2020.11.02, 03:05
  */
 
-package com.example.camclient
+package ru.lilliputten.camclient
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
-import com.example.camclient.core.CoreContent
+import ru.lilliputten.camclient.core.CoreContent
 
 /**
  * An activity representing a single Item detail screen. This

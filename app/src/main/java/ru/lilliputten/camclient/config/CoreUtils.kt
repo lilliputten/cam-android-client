@@ -3,7 +3,7 @@
  *  @changed 2020.10.30, 05:02
  */
 
-package com.example.camclient.config
+package ru.lilliputten.camclient.config
 
 import android.os.Build
 import android.util.Log

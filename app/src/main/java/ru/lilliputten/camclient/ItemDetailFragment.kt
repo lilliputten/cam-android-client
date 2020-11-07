@@ -3,7 +3,7 @@
  *  @changed 2020.11.02, 03:05
  */
 
-package com.example.camclient
+package ru.lilliputten.camclient
 
 import android.graphics.Bitmap
 import android.net.Uri
@@ -17,9 +17,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.android.volley.toolbox.ImageLoader
-import com.example.camclient.config.RouteIds
-import com.example.camclient.config.Routes
-import com.example.camclient.core.CoreContent
+import ru.lilliputten.camclient.config.RouteIds
+import ru.lilliputten.camclient.config.Routes
+import ru.lilliputten.camclient.core.CoreContent
 import com.google.android.material.snackbar.Snackbar
 
 // import com.google.android.material.snackbar.Snackbar
