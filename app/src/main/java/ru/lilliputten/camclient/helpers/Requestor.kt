@@ -1,6 +1,6 @@
 /** @module helpers/Requestor
  *  @since 2020.10.30, 03:27
- *  @changed 2020.11.07, 22:51
+ *  @changed 2020.11.08, 00:33
  */
 
 package ru.lilliputten.camclient.helpers

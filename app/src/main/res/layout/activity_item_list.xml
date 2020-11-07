@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/Theme.CamClient.PopupOverlay"
-            app:titleTextColor="#ffffffff"
-        />
+            app:titleTextColor="#ffffffff" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -56,5 +55,15 @@
         app:layout_anchor="@+id/delete_button"
         app:layout_anchorGravity="center"
         app:srcCompat="@android:drawable/ic_popup_sync" />
+
+    <ProgressBar
+        android:id="@+id/list_progress_spinner"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|center_horizontal"
+        android:background="#66000000"
+        android:padding="50dp"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

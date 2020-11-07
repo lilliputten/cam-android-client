@@ -1,6 +1,6 @@
 /** @module ItemDetailActivity
  *  @since 2020.10.30, 03:27
- *  @changed 2020.11.02, 03:05
+ *  @changed 2020.11.08, 00:33
  */
 
 package ru.lilliputten.camclient
@@ -9,9 +9,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+// import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
+import android.widget.Toast
 import ru.lilliputten.camclient.core.CoreContent
 
 /**
@@ -31,17 +34,24 @@ class ItemDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_item_detail)
         setSupportActionBar(findViewById(R.id.detail_toolbar))
 
+        val progressSpinner = findViewById<ProgressBar>(R.id.details_progress_spinner)
+        Log.d(TAG, "onCreate: progressSpinner: $progressSpinner")
+
         findViewById<FloatingActionButton>(R.id.delete_button).setOnClickListener { view ->
             if (this.itemId === null) {
                 throw Exception("itemId is undefined!")
             }
             else {
+                progressSpinner.visibility = View.VISIBLE
                 Log.d(TAG, "delete_button action: ${this.itemId}")
-                Snackbar.make(view, "Deleting item", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()
-                CoreContent.deleteImage(this.itemId as String)
+                Toast.makeText(this, "Deleting mage", Toast.LENGTH_LONG).show()
+                // Snackbar.make(view, "Deleting item", Snackbar.LENGTH_LONG)
+                //         .setAction("Action", null).show()
+                CoreContent.deleteImage(this.itemId as String) {
+                    progressSpinner.visibility = View.GONE
+                    Toast.makeText(this, "Image was deleted", Toast.LENGTH_LONG).show()
+                }
                 navigateUpTo(Intent(this, ItemListActivity::class.java))
-                true
             }
         }
 

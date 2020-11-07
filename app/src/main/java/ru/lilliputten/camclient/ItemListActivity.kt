@@ -1,6 +1,6 @@
 /** @module ItemListActivity
  *  @since 2020.10.30, 03:27
- *  @changed 2020.11.02, 03:05
+ *  @changed 2020.11.08, 00:33
  */
 
 package ru.lilliputten.camclient
@@ -11,13 +11,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+// import com.google.android.material.snackbar.Snackbar
 
 import ru.lilliputten.camclient.core.CoreContent
 
@@ -46,19 +48,32 @@ class ItemListActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         toolbar.title = title
 
+        val progressSpinner = findViewById<ProgressBar>(R.id.list_progress_spinner)
+        // Log.d(TAG, "onCreate: progressSpinner: $progressSpinner")
+
         findViewById<FloatingActionButton>(R.id.delete_button).setOnClickListener { view ->
-            Snackbar.make(view, "Deleting all images", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-            CoreContent.deleteAll()
+            progressSpinner.visibility = View.VISIBLE
+            // Snackbar.make(view, "Deleting all images", Snackbar.LENGTH_LONG)
+            //         .setAction("Action", null).show()
+            Toast.makeText(this, "Deleting all images", Toast.LENGTH_LONG).show()
+            CoreContent.deleteAll {
+                progressSpinner.visibility = View.GONE
+                Toast.makeText(this, "All images was deleted", Toast.LENGTH_LONG).show()
+            }
         }
 
-        findViewById<FloatingActionButton>(R.id.reload_button).setOnClickListener { view ->
-            Snackbar.make(view, "Reloading images", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-            CoreContent.reloadData()
+        findViewById<FloatingActionButton>(R.id.reload_button).setOnClickListener {
+            progressSpinner.visibility = View.VISIBLE
+            // Snackbar.make(view, "Reloading images", Snackbar.LENGTH_LONG)
+            //         .setAction("Action", null).show()
+            Toast.makeText(this, "Reloading images", Toast.LENGTH_LONG).show()
+            CoreContent.reloadData {
+                // Log.d(TAG, "onCreate: reload_button action: $result progressSpinner: $progressSpinner")
+                progressSpinner.visibility = View.GONE
+                Toast.makeText(this, "Images reloaded", Toast.LENGTH_LONG).show()
+            }
         }
 
-        // if (findViewById<NestedScrollView>(R.id.item_detail_container) != null) {
         if (findViewById<NestedScrollView>(R.id.item_details) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -67,18 +82,23 @@ class ItemListActivity : AppCompatActivity() {
             twoPane = true
         }
 
-        // setupRecyclerView()
         CoreContent.start(this) { -> this.setupRecyclerView() }
     }
 
     private fun setupRecyclerView() {
+        // Hide progress spinner
+        val progressSpinner = findViewById<ProgressBar>(R.id.list_progress_spinner)
+        Log.d(TAG, "setupRecyclerView: progressSpinner: $progressSpinner")
+        progressSpinner.visibility = View.GONE
+        // Get & update items...
         val items = CoreContent.itemsList
         Log.d(TAG, "setupRecyclerView: $items")
         val recyclerView: RecyclerView = findViewById(R.id.item_list)
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, CoreContent.itemsList, twoPane)
         if (CoreContent.itemsList.size == 0) {
-            Snackbar.make(recyclerView, "No images to display", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            Toast.makeText(this, "No images to display", Toast.LENGTH_LONG).show()
+            // Snackbar.make(recyclerView, "No images to display", Snackbar.LENGTH_LONG)
+            //         .setAction("Action", null).show()
         }
     }
 
@@ -100,7 +120,6 @@ class ItemListActivity : AppCompatActivity() {
                     }
                     parentActivity.supportFragmentManager
                             .beginTransaction()
-                            // .replace(R.id.item_detail_container, fragment)
                             .replace(R.id.item_details, fragment)
                             .commit()
                 } else {

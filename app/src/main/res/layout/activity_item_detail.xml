@@ -9,7 +9,7 @@
     tools:ignore="MergeRootFrame">
 
     <LinearLayout
-        android:id="@+id/root_layout"
+        android:id="@+id/details_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -128,12 +128,22 @@
         android:id="@+id/delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start"
+        android:layout_gravity="start|center_vertical"
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@string/delete_image"
-        app:layout_anchor="@+id/root_layout"
+        app:layout_anchor="@+id/details_layout"
         app:layout_anchorGravity="end|bottom"
         app:srcCompat="@android:drawable/ic_delete"
         app:tint="#000000" />
+
+    <ProgressBar
+        android:id="@+id/details_progress_spinner"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|center_horizontal"
+        android:background="#66000000"
+        android:padding="50dp"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,6 +1,6 @@
 /** @module CoreContent
  *  @since 2020.10.30, 03:27
- *  @changed 2020.11.02, 03:06
+ *  @changed 2020.11.08, 00:33
  *
  *  TODO:
  *  - Cache images list
@@ -125,7 +125,7 @@ object CoreContent {
         }
     }
 
-    private fun requestData() {
+    private fun requestData(callback: ((Any) -> Unit)? = null) {
         val method = Request.Method.GET
         val url = Routes.getRoute(RouteIds.AllImages)
         Log.d(TAG, "requestData: start: url: $url, method: $method")
@@ -142,11 +142,14 @@ object CoreContent {
                 Log.d(TAG, "requestData: success: $images")
                 this.setImagesList(images)
             }
+            if (callback !== null) {
+                callback(result)
+            }
         }
     }
 
-    fun reloadData() {
-        this.requestData()
+    fun reloadData(callback: ((Any) -> Unit)? = null) {
+        this.requestData(callback)
     }
 
     fun getImageData(id: String, callback: (Any) -> Unit) {
@@ -168,18 +171,17 @@ object CoreContent {
                 val stacktrace = result.stackTrace.joinToString("\n")
                 Log.d(TAG, "getImageData: request error: $message / Stacktrace: $stacktrace")
                 // Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
-                callback(result)
             }
             // else if (result is JSONObject && result.has("images") && result["images"] is JSONArray) {
             else if (result is Bitmap) {
                 Log.d(TAG, "getImageData: request success: $result")
                 this.bitmapsCacheMap[id] = result
-                callback(result)
             }
+            callback(result)
         }
     }
 
-    fun deleteAll() {
+    fun deleteAll(callback: ((Any) -> Unit)? = null) {
         val method = Request.Method.DELETE
         val url = Routes.getRoute(RouteIds.AllImages)
         Log.d(TAG, "deleteAll: start: url: $url, method: $method")
@@ -195,10 +197,13 @@ object CoreContent {
                 // Alternative: pass empty images list in expected json format: `JSONObject(mapOf("images" to ArrayList<Int>()))`
                 this.setImagesList(null)
             }
+            if (callback !== null) {
+                callback(result)
+            }
         }
     }
 
-    fun deleteImage(id: String) {
+    fun deleteImage(id: String, callback: ((Any) -> Unit)? = null) {
         val method = Request.Method.DELETE
         val data = mapOf("id" to id)
         val url = Routes.getRoute(RouteIds.Image, data)
@@ -210,6 +215,9 @@ object CoreContent {
                 val stacktrace = result.stackTrace.joinToString("\n")
                 Log.d(TAG, "deleteImage: error: $message / Stacktrace: $stacktrace")
                 Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
+                if (callback !== null) {
+                    callback(result)
+                }
             }
             else {
                 // Alternative: pass empty images list in expected json format: `JSONObject(mapOf("images" to ArrayList<Int>()))`
@@ -229,11 +237,14 @@ object CoreContent {
                     throw Exception("`updateCallback` must be initialized!")
                 }
                 this.updateCallback()
+                if (callback !== null) {
+                    callback(true)
+                }
             }
         }
     }
 
-    private fun requestDataAsync() { // NOTE: Example!
+    private fun requestDataAsync() { // NOTE: DEMO! Need to solve problems with queues in coroutines.
         val method = Request.Method.GET
         val url = Routes.getRoute(RouteIds.AllImages)
         Log.d(TAG, "requestData: start: url: $url")
