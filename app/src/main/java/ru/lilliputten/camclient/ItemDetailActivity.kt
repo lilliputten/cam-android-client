@@ -37,8 +37,8 @@ class ItemDetailActivity : AppCompatActivity() {
         val progressSpinner = findViewById<ProgressBar>(R.id.details_progress_spinner)
         Log.d(TAG, "onCreate: progressSpinner: $progressSpinner")
 
-        findViewById<FloatingActionButton>(R.id.delete_button).setOnClickListener { view ->
-            if (this.itemId === null) {
+        findViewById<FloatingActionButton>(R.id.delete_button).setOnClickListener {
+          if (this.itemId === null) {
                 throw Exception("itemId is undefined!")
             }
             else {

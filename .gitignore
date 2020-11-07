@@ -1,13 +1,22 @@
 
+# Temp files:
 *~
 *_
 .*.sw?
 *.tmp
 *.bak
+
+# Project environment:
 *.session
+
+# Lost+found etc:
 *-crashed-session.txt
 *-crashed-session.tgz
 
+# Generated certificate files:
+# certificate.*
+
+# Android studio specific:
 *.iml
 .gradle
 /local.properties

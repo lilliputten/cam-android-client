@@ -51,8 +51,8 @@ class ItemListActivity : AppCompatActivity() {
         val progressSpinner = findViewById<ProgressBar>(R.id.list_progress_spinner)
         // Log.d(TAG, "onCreate: progressSpinner: $progressSpinner")
 
-        findViewById<FloatingActionButton>(R.id.delete_button).setOnClickListener { view ->
-            progressSpinner.visibility = View.VISIBLE
+        findViewById<FloatingActionButton>(R.id.delete_button).setOnClickListener {
+          progressSpinner.visibility = View.VISIBLE
             // Snackbar.make(view, "Deleting all images", Snackbar.LENGTH_LONG)
             //         .setAction("Action", null).show()
             Toast.makeText(this, "Deleting all images", Toast.LENGTH_LONG).show()
