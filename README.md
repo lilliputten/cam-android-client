@@ -25,7 +25,7 @@
 - Upload build to release server, eg: `sh util-remote-upload-build.sh golden`.
 
 
-## To produce/upload actual build:
+## To make/upload actual build:
 
 - (Optional:) Increment/initialize actual project versions (with `util-increment-version.sh`) or update version/datetags (with `util-update-build-variables.sh`).
 - Build APK in Android Studio
@@ -33,6 +33,14 @@
 - Locate release in `app/release`
 
 
+## Download apk:
+
+Private (with login/password -- may be available by request) links:
+
+- [All releases](https://cam-client-android.lilliputten.ru/)
+- [Specific release, v.0.1.3 from 2020.11.08 02:29](https://cam-client-android.lilliputten.ru/0.1.3/cam-client-android-v.0.1.3-201108-0229.apk)
+
+
 <!--
- @changed 2020.11.08, 02:32
+ @changed 2020.11.08, 02:50
 -->
