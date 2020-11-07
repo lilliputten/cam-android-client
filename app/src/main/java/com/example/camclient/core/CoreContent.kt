@@ -9,6 +9,7 @@
 package com.example.camclient.core
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
@@ -49,12 +50,14 @@ object CoreContent {
     /**
      * List of image items.
      */
-    val ITEMS: MutableList<ImageItem> = ArrayList()
+    val itemsList: MutableList<ImageItem> = ArrayList()
 
     /**
      * A map of image items, by ID.
      */
-    val ITEM_MAP: MutableMap<String, ImageItem> = HashMap()
+    val itemsDataMap: MutableMap<String, ImageItem> = HashMap()
+
+    private val bitmapsCacheMap: MutableMap<String, Bitmap> = HashMap()
 
     // private val COUNT = 25
 
@@ -88,8 +91,9 @@ object CoreContent {
 
     private fun setImagesList(images: JSONArray?) {
         try {
-            this.ITEMS.clear()
-            this.ITEM_MAP.clear()
+            this.itemsList.clear()
+            this.itemsDataMap.clear()
+            this.bitmapsCacheMap.clear()
             if (images is JSONArray) {
                 // throw Exception("Images list is required!")
                 // val images = data["images"] as JSONArray
@@ -107,7 +111,7 @@ object CoreContent {
                     this.addItem(itemObject)
                 }
             }
-            Log.d(TAG, "setImagesList: calling updateCallback with $this.ITEMS")
+            Log.d(TAG, "setImagesList: calling updateCallback with $this.itemsList")
             if (!(this::updateCallback.isInitialized)) {
                 throw Exception("`updateCallback` must be initialized!")
             }
@@ -145,23 +149,31 @@ object CoreContent {
         this.requestData()
     }
 
-    fun loadImageData(id: String, callback: (Any) -> Unit) {
-        val method = Request.Method.GET
+    fun getImageData(id: String, callback: (Any) -> Unit) {
+        Log.d(TAG, "getImageData: start: id: $id")
+        if (this.bitmapsCacheMap.containsKey(id)) {
+            val bitmap = this.bitmapsCacheMap[id]
+            Log.d(TAG, "getImageData: found in cache: $bitmap")
+            callback(bitmap as Any)
+            return
+        }
         val data = mapOf("id" to id)
         val url = Routes.getRoute(RouteIds.ShowImage, data)
-        Log.d(TAG, "loadImageData: start: url: $url, method: $method, data: $data")
-        Requestor.fetchStringCallback(method, url, data) { result ->
-            Log.d(TAG, "loadImageData: result: $result")
+        Log.d(TAG, "getImageData: request start: url: $url, data: $data")
+        // TODO: Store & fetch image data from cache?
+        Requestor.fetchImageCallback(url) { result ->
+            Log.d(TAG, "getImageData: request result: $result")
             if (result is Exception) {
                 val message = result.message
                 val stacktrace = result.stackTrace.joinToString("\n")
-                Log.d(TAG, "loadImageData: error: $message / Stacktrace: $stacktrace")
-                Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
+                Log.d(TAG, "getImageData: request error: $message / Stacktrace: $stacktrace")
+                // Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
                 callback(result)
             }
             // else if (result is JSONObject && result.has("images") && result["images"] is JSONArray) {
-            else {
-                Log.d(TAG, "loadImageData: success: $result")
+            else if (result is Bitmap) {
+                Log.d(TAG, "getImageData: request success: $result")
+                this.bitmapsCacheMap[id] = result
                 callback(result)
             }
         }
@@ -201,15 +213,18 @@ object CoreContent {
             }
             else {
                 // Alternative: pass empty images list in expected json format: `JSONObject(mapOf("images" to ArrayList<Int>()))`
-                // TODO: filter ITEMS
+                // TODO: filter itemsList
                 // this.setImagesList(null)
-                val removedItem = this.ITEM_MAP.remove(id)
+                val removedItem = this.itemsDataMap.remove(id)
                 if (removedItem !== null) {
-                    this.ITEMS.remove(removedItem)
+                    this.itemsList.remove(removedItem)
                 }
-                // val removedIndex = this.ITEMS.indexOf(removedItem)
-                // this.ITEMS.drop(removedIndex)
-                Log.d(TAG, "deleteImage: deleted image $id, ${this.ITEMS}, ${this.ITEM_MAP}")
+                if (this.bitmapsCacheMap.containsKey(id)) {
+                    this.bitmapsCacheMap.remove(id)
+                }
+                // val removedIndex = this.itemsList.indexOf(removedItem)
+                // this.itemsList.drop(removedIndex)
+                Log.d(TAG, "deleteImage: deleted image $id")
                 if (!(this::updateCallback.isInitialized)) {
                     throw Exception("`updateCallback` must be initialized!")
                 }
@@ -239,8 +254,8 @@ object CoreContent {
     }
 
     private fun addItem(item: ImageItem) {
-        ITEMS.add(item)
-        ITEM_MAP.put(item.id, item)
+        this.itemsList.add(item)
+        this.itemsDataMap[item.id] = item
     }
 
     // private fun createImageItem(position: Int): ImageItem {

@@ -5,22 +5,21 @@
 
 package com.example.camclient
 
-// import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.android.volley.toolbox.ImageLoader
 import com.example.camclient.config.RouteIds
 import com.example.camclient.config.Routes
-// import android.widget.Toast
 import com.example.camclient.core.CoreContent
-import com.example.camclient.helpers.CustomVolleyRequest
 import com.google.android.material.snackbar.Snackbar
 
 // import com.google.android.material.snackbar.Snackbar
@@ -48,7 +47,7 @@ class ItemDetailFragment : Fragment() {
                 // Load the dummy content specified by the fragment
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
-                item = CoreContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
+                item = CoreContent.itemsDataMap[it.getString(ARG_ITEM_ID)]
                 // activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title = "${item?.timestamp}\n${item?.ip}"
             }
         }
@@ -59,9 +58,7 @@ class ItemDetailFragment : Fragment() {
         try {
             // val rootView = inflater.inflate(R.layout.item_detail, container, false)
             val viewId = R.layout.item_details
-            // val viewId = R.layout.show_timestamp_row
             Log.d(TAG, "onCreateView: try to find view: $viewId")
-            // return null
             val rootView = inflater.inflate(viewId, container, false)
             Log.d(TAG, "onCreateView: found view: $rootView")
             // Show content
@@ -82,31 +79,18 @@ class ItemDetailFragment : Fragment() {
                 }
                 val showImage = container?.findViewById<ImageView>(R.id.show_image)
 
-                // CoreContent.loadImageData(it.id) { result ->
-                //     Log.d(TAG, "onCreateView: loadImageData: result: $result, showImage: $showImage")
-                // }
-                // TODO 2020.11.01, 05:19 -- Place image
-
-                val context = this.context // this.getApplicationContext()
-                if (context != null) {
-                    val data = mapOf("id" to id)
-                    val url = Routes.getRoute(RouteIds.ShowImage, data)
-                    Log.d(TAG, "loadImageData: start: id: $id, url: $url, data: $data")
-                    try {
-                        val customVolleyRequest = CustomVolleyRequest.getInstance(context)
-                        val imageLoader: ImageLoader = customVolleyRequest!!.getLoader()
-                        val imageListener: ImageLoader.ImageListener = ImageLoader.getImageListener(showImage,
-                                // 0, 0)
-                                R.drawable.image, R.drawable.broken_image)
-                        imageLoader.get(url, imageListener)
-                        showImage?.setImageURI(Uri.parse(url))
+                CoreContent.getImageData(id) { result ->
+                    Log.d(TAG, "onCreateView: getImageData: result: $result, showImage: $showImage")
+                    if (result is Exception) {
+                        val message = result.message
+                        val stacktrace = result.stackTrace.joinToString("\n")
+                        Log.d(TAG, "onCreateView: getImageData: error: $message / Stacktrace: $stacktrace")
+                        Toast.makeText(this.context, "Error: $message", Toast.LENGTH_LONG).show()
                     }
-                    catch (ex: Exception) {
-                        val message = ex.message
-                        val stacktrace = ex.stackTrace.joinToString("\n")
-                        Log.d(TAG, "ItemDetailFragment:onCreateView: load image exception: $message / $stacktrace")
-                        Snackbar.make(rootView, "Image loading error: $message", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show()
+                    // else if (result is JSONObject && result.has("images") && result["images"] is JSONArray) {
+                    else if (result is Bitmap && showImage !== null) {
+                        Log.d(TAG, "onCreateView: getImageData: success: $result")
+                        showImage.setImageBitmap(result)
                     }
                 }
             }

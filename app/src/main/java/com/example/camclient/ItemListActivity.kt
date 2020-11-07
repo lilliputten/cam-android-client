@@ -72,11 +72,11 @@ class ItemListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        val items = CoreContent.ITEMS
+        val items = CoreContent.itemsList
         Log.d(TAG, "setupRecyclerView: $items")
         val recyclerView: RecyclerView = findViewById(R.id.item_list)
-        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, CoreContent.ITEMS, twoPane)
-        if (CoreContent.ITEMS.size == 0) {
+        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, CoreContent.itemsList, twoPane)
+        if (CoreContent.itemsList.size == 0) {
             Snackbar.make(recyclerView, "No images to display", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }

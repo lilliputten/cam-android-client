@@ -9,10 +9,18 @@ import android.util.Log
 import java.util.*
 
 import com.example.camclient.config.Params
-import com.example.camclient.config.RouteIds
+// import com.example.camclient.config.RouteIds
+
+enum class RouteIds {
+    Undefined, // DEBUG: For test purposes only (empty value, no url)
+    Recent,
+    AllImages,
+    Image,
+    ShowImage,
+}
 
 val isEmulator = Params.isEmulator
-val server = if (false && isEmulator) Params.devServerAddr else Params.serverAddr
+val server = if (isEmulator) Params.devServerAddr else Params.serverAddr
 val routesMap = mapOf(
     RouteIds.Recent to "$server/api/images/recent",
     RouteIds.AllImages to "$server/api/images",
