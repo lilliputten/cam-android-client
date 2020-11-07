@@ -3,9 +3,9 @@
 
 ## Build info (auto-generated)
 
-- Version: 0.1.2
-- Last changes timestamp: 2020.11.08 01:54
-- Last changes timetag: 201108-0154
+- Version: 0.1.3
+- Last changes timestamp: 2020.11.08 02:29
+- Last changes timetag: 201108-0229
 
 
 ## Current status documents
@@ -15,14 +15,24 @@
 - [CHANGELOG.md](CHANGELOG.md)
 
 
-# Project properties:
+## Project properties:
 
 - Source folder: [app/src/main/java/ru/lilliputten/camclient](app/src/main/java/ru/lilliputten/camclient)
 - Source extensions: `*.kt,*.java,*.xml,*.json,*.yml,*.yaml,*.sh,*.md,*.txt`
 - Debug log filtering: `d/debug`
 - Debug APK location: `app/build/outputs/apk/debug` (`app-debug.apk`, `output-metadata.json`)
-- Release apk location: `app/release` (`app-release.apk`, `output-metadata.json`)
+- See built apk in: `app/release` (`app-release.apk`, `output-metadata.json`).
+- Upload build to release server, eg: `sh util-remote-upload-build.sh golden`.
+
+
+## To produce/upload actual build:
+
+- (Optional:) Increment/initialize actual project versions (with `util-increment-version.sh`) or update version/datetags (with `util-update-build-variables.sh`).
+- Build APK in Android Studio
+- Generate signed bundle in Android Studio (using created certificate, see `certificate-make.sh`, `certificate-params.txt`)
+- Locate release in `app/release`
+
 
 <!--
- @changed 2020.11.07, 23:04
+ @changed 2020.11.08, 02:32
 -->
