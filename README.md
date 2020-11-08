@@ -35,12 +35,12 @@
 
 ## Download apk:
 
-Private (with login/password -- may be available by request) links:
+Private links (secured with login/password -- may be available by request):
 
 - [All releases](https://cam-client-android.lilliputten.ru/)
 - [Specific release (sample)](https://cam-client-android.lilliputten.ru/0.1.3/cam-client-android-v.0.1.3-201108-0229.apk)
 
 
 <!--
- @changed 2020.11.08, 02:50
+ @changed 2020.11.08, 03:55
 -->
