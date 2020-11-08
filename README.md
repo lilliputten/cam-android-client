@@ -3,9 +3,9 @@
 
 ## Build info (auto-generated)
 
-- Version: 0.1.3
-- Last changes timestamp: 2020.11.08 02:29
-- Last changes timetag: 201108-0229
+- Version: 0.1.4
+- Last changes timestamp: 2020.11.08 03:22
+- Last changes timetag: 201108-0322
 
 
 ## Current status documents
