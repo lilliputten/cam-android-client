@@ -21,6 +21,7 @@
 - Source extensions: `*.kt,*.java,*.xml,*.json,*.yml,*.yaml,*.sh,*.md,*.txt`
 - Debug log filtering: `d/debug`
 - Debug APK location: `app/build/outputs/apk/debug` (`app-debug.apk`, `output-metadata.json`)
+- Release APK location: `app/release` (`app-release.apk`, `output-metadata.json`).
 
 
 ## Make/upload actual build:
