@@ -38,7 +38,7 @@
 Private (with login/password -- may be available by request) links:
 
 - [All releases](https://cam-client-android.lilliputten.ru/)
-- [Specific release, v.0.1.3 from 2020.11.08 02:29](https://cam-client-android.lilliputten.ru/0.1.3/cam-client-android-v.0.1.3-201108-0229.apk)
+- [Specific release (sample)](https://cam-client-android.lilliputten.ru/0.1.3/cam-client-android-v.0.1.3-201108-0229.apk)
 
 
 <!--
