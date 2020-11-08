@@ -21,16 +21,15 @@
 - Source extensions: `*.kt,*.java,*.xml,*.json,*.yml,*.yaml,*.sh,*.md,*.txt`
 - Debug log filtering: `d/debug`
 - Debug APK location: `app/build/outputs/apk/debug` (`app-debug.apk`, `output-metadata.json`)
-- See built apk in: `app/release` (`app-release.apk`, `output-metadata.json`).
-- Upload build to release server, eg: `sh util-remote-upload-build.sh golden`.
 
 
-## To make/upload actual build:
+## Make/upload actual build:
 
 - (Optional:) Increment/initialize actual project versions (with `util-increment-version.sh`) or update version/datetags (with `util-update-build-variables.sh`).
-- Build APK in Android Studio
-- Generate signed bundle in Android Studio (using created certificate, see `certificate-make.sh`, `certificate-params.txt`)
-- Locate release in `app/release`
+- Build APK in Android Studio.
+- Generate signed bundle in Android Studio (using created certificate, see `certificate-make.sh`, `certificate-params.txt`).
+- See built apk in: `app/release` (`app-release.apk`, `output-metadata.json`).
+- Upload build to release server, eg: `sh util-remote-upload-build.sh golden`.
 
 
 ## Download apk:
@@ -42,5 +41,5 @@ Private links (secured with login/password -- may be available by request):
 
 
 <!--
- @changed 2020.11.08, 03:56
+ @changed 2020.11.08, 05:43
 -->
