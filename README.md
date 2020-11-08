@@ -1,4 +1,4 @@
-# Cam server android client v.0, kotlin)
+# Cam server android client (v.0, kotlin)
 
 
 ## Build info (auto-generated)
@@ -42,5 +42,5 @@ Private links (secured with login/password -- may be available by request):
 
 
 <!--
- @changed 2020.11.08, 03:55
+ @changed 2020.11.08, 03:56
 -->
