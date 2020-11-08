@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "ru.lilliputten.camclient"
-        versionName "0.1.4"
+        versionName "0.1.5"
         versionCode 6
 
         minSdkVersion 16
