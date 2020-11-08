@@ -13,7 +13,7 @@
 *-crashed-session.tgz
 
 # Generated certificate files:
-# certificate.*
+certificate.*
 
 # Android studio specific:
 *.iml
