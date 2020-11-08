@@ -1,6 +1,6 @@
 # CHANGELOG
 
-- 2020.11.08, 03:24 -- v.0.1.4: App launcher icon.
+- 2020.11.08, 03:24 -- v.0.1.5: App launcher icon.
 - 2020.11.08, 02:28 -- v.0.1.3: Maintenance utilities (versioning, upload etc).
 - 2020.11.08, 00:34 -- v.0.1.1: Displaying progressbar spinner.
 - 2020.11.07, 23:07 -- v.0.1.0: Using `lilliputten.ru` domain.
@@ -9,5 +9,5 @@
 - 2020.11.01, 00:01 -- Set content with api request (CoreContent).
 
 <!--
- @changed 2020.11.08, 02:29
+ @changed 2020.11.08, 03:52
 -->
